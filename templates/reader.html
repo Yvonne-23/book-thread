@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reader - BookBridge</title>
+</head>
+<body>
+    <h1>Your transfer code is:</h1>
+    <h2>{{ code }}</h2>
+
+    <p>Give this code to the sender. Keep this page open.</p>
+
+    <div id="status">Waiting for file...</div>
+
+    <script>
+        const code = "{{ code }}";
+
+        async function checkStatus() {
+            const response = await fetch(`/status/${code}`);
+            const data = await response.json();
+
+            if (data.ready) {
+                document.getElementById("status").innerHTML = `
+                    <p>File ready: ${data.filename}</p>
+                    <a href="/download/${code}">Download file</a>
+                `;
+            }
+        }
+
+        setInterval(checkStatus, 2000);
+    </script>
+</body>
+</html>
