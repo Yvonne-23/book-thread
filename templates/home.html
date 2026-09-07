@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Book Transfer App</title>
+    <title>BookBridge</title>
 </head>
 <body>
     <h1>Welcome to BookBridge</h1>
     <p>Transfer ebooks to your Kobo or Kindle easily.</p>
+
+    <h2>Send a book</h2>
+
+    <form action="/sender">
+        <button type="submit">Enter transfer code</button>
+    </form>
+
+    <p>Receiving a book instead?</p>
+
+    <form action="/reader">
+        <button type="submit">Get a transfer code</button>
+    </form>
 </body>
 </html>
