@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, jsonify, send_file, redirect
+
 from pathlib import Path
+from flask_cors import CORS
+
 import random
 import string
 
 
+
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])
 
 UPLOAD_FOLDER = Path("uploads")
 UPLOAD_FOLDER.mkdir(exist_ok=True)
@@ -42,6 +47,25 @@ def reader():
         "file_path": None,
         "filename": None
     }
+
+    return render_template(
+        "reader.html",
+        code=code
+    )
+
+
+@app.route("/api/session", methods=["POST"])
+def create_session():
+    code = generate_code()
+
+    sessions[code] = {
+        "file_path": None,
+        "filename": None
+    }
+
+    return jsonify({
+        "code": code
+    })
 
     return render_template(
         "reader.html",
